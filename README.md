@@ -1,12 +1,10 @@
 # Principal SRE - Code Challenge
 
-Welcome to the code challenge for the Site Reliability Engineer (SRE) role at BPP. For this challenge you will be required to write Terraform code that creates an AWS EC2 instance to a set of acceptance criteria. This challenge will assess your ability to provision infrastructure using Terraform, your Git and Shell scripting knowledge as well as your understanding of AWS resources.  This challenge is split over 3 parts.
+Welcome to the code challenge for the Site Reliability Engineer (SRE) role at BPP. For this challenge you will be required to write Terraform code that creates an AWS EC2 instance to a set of acceptance criteria. This challenge will assess your ability to provision infrastructure using Terraform, your Git and Shell scripting knowledge as well as your understanding of AWS resources. This challenge is split over 3 parts.
 
-Welcome to the code challenge for the Site Reliability Engineer (SRE) role at BPP.  This challenge will give you an opportunity to showcase your skills in Terraform, Git, and Shell scripting, as well as your understanding of AWS resources. The challenge is divided into three parts, each focusing on a specific aspect. 
+Welcome to the code challenge for the Site Reliability Engineer (SRE) role at BPP. This challenge will give you an opportunity to showcase your skills in Terraform, Git, and Shell scripting, as well as your understanding of AWS resources. The challenge is divided into three parts, each focusing on a specific aspect.
 
-Good luck!  We're excited to see your solutions and how you tackle each part of the challenge.
-
-
+Good luck! We're excited to see your solutions and how you tackle each part of the challenge.
 
 ## Part 1 - Terraform: Create AWS EC2 Instance
 
@@ -32,16 +30,14 @@ Good luck!  We're excited to see your solutions and how you tackle each part of 
 6. Deploy your Terraform code to the BPP Interviews AWS Account using credentials supplied during the interview.
 7. Commit and push your code changes to the remote branch.
 
-
-
-## Part 2 - Terraform: Refactoring 
+## Part 2 - Terraform: Refactoring
 
 ### Acceptance Criteria
 
 1. Refactor the Terraform code from Part 1 to a reusable opinionated Terraform module.
 2. The refactored code should still create all the resources from Part 1, and:
-   - Allows the Instance Type to be parameterised 
-   - Allows the Environment Tag to be parameterised 
+   - Allows the Instance Type to be parameterised
+   - Allows the Environment Tag to be parameterised
 3. The Terraform state should not be modified during the refactoring process.
 
 ### Instructions
@@ -53,9 +49,7 @@ Good luck!  We're excited to see your solutions and how you tackle each part of 
 5. Deploy your Terraform code to the BPP Interviews AWS Account using credentials supplied during the interview.
 6. Commit and push your code changes to the remote branch.
 
-
-
-## Part 3 - Recursive Text Search Script
+## Part 3 - Shell Scripting: Recursive Text Search
 
 ### Acceptance Criteria
 
