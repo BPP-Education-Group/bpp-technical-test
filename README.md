@@ -1,7 +1,5 @@
 # Principal SRE - Code Challenge
 
-Welcome to the code challenge for the Site Reliability Engineer (SRE) role at BPP. For this challenge you will be required to write Terraform code that creates an AWS EC2 instance to a set of acceptance criteria. This challenge will assess your ability to provision infrastructure using Terraform, your Git and Shell scripting knowledge as well as your understanding of AWS resources. This challenge is split over 3 parts.
-
 Welcome to the code challenge for the Site Reliability Engineer (SRE) role at BPP. This challenge will give you an opportunity to showcase your skills in Terraform, Git, and Shell scripting, as well as your understanding of AWS resources. The challenge is divided into three parts, each focusing on a specific aspect.
 
 Good luck! We're excited to see your solutions and how you tackle each part of the challenge.
