@@ -35,7 +35,7 @@ Good luck! We're excited to see your solutions and how you tackle each part of t
 2. The refactored code should still create all the resources from Part 1, and:
    - Allows the Instance Type to be parameterised
    - Allows the Environment Tag to be parameterised
-3. The Terraform state should not be modified during the refactoring process.
+3. The AWS resources should not be modified during the refactoring process.
 
 ### Instructions
 
