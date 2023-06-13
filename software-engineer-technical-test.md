@@ -25,6 +25,35 @@ This is already provided to you as a JSON string in the test
 | Accounting | An Accounting Course | £500  | Classroom | 10         |
 | Management | A Management Course  | £200  | Classroom | 10         |
 
+```
+// data/courses.js
+const courses = [
+  {
+    id: 1,
+    title: 'Law',
+    description: 'A Law Course',
+    cost: '£1000',
+    type: 'Online',
+    maxSeats: 'Unlimited',
+  },
+  {
+    id: 2,
+    title: 'Accounting',
+    description: 'An Accounting Course',
+    cost: '£500',
+    type: 'Classroom',
+    maxSeats: '10',
+  },
+  {
+    id: 3,
+    title: 'Management',
+    description: 'A Management Course',
+    cost: '£200',
+    type: 'Classroom',
+    maxSeats: '10',
+  }
+```
+
 ### Task 2 - Front-end
 -   Create a frontend application using React that consumes the API and provides the following features:Display a list of available courses with their titles, descriptions, costs, and remaining seats.
 -   Allow users to enroll in a course by clicking on a "Enrol" button.
