@@ -3,39 +3,15 @@ import RegistrationForm from '../components/registration-form';
 import Courses from '../components/courses'
 import { Course } from '@/types/course';
 import { useState } from 'react';
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
 
 export async function getServerSideProps() {
+  const courses = await prisma.course.findMany();
   return {
     props: {
-      initialCourses: [
-        {
-          "id": 1,
-          "title": "Law",
-          "description": "A Law Course",
-          "cost": 1000,
-          "type": "Online",
-          "capacity": -1,
-          "registered": 0
-        },
-        {
-          "id": 2,
-          "title": "Accounting",
-          "description": "An Accounting Course",
-          "cost": 500,
-          "type": "Classroom",
-          "capacity": 10,
-          "registered": 0
-        },
-        {
-          "id": 3,
-          "title": "Management",
-          "description": "A Management Course",
-          "cost": 200,
-          "type": "Classroom",
-          "capacity": 10,
-          "registered": 0
-        }
-      ]
+      initialCourses: courses
     }
   };
 }
