@@ -30,7 +30,7 @@ npm prisma studio
 yarn prisma studio
 ```
 
-Then, open [http://localhost:5555 with your browser to see the result.
+Then, open [http://localhost:5555](http://localhost:5555) with your browser to see the result.
 
 # User Stories
 
@@ -52,4 +52,3 @@ Then, open [http://localhost:5555 with your browser to see the result.
 
 1. Once Registered, the Registrations panel should immediately re-render to show the Registered Student
 2. Once Registered, the Course should immediately re-render with an updated Registrations count
-
