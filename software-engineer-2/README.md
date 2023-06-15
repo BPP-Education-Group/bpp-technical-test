@@ -1,6 +1,14 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Technical Challenge
 
-## Getting Started
+## Application Overview
+
+This simple [Next.js](https://nextjs.org/) application allows a user to Register a Student onto a Course.
+
+The Courses and Registrations are persisted in a SQLite database managed by [Prisma](https://www.prisma.io/), which is an open source ORM.
+
+## Getting Setup
+
+### Development Server
 
 First, run the development server:
 
@@ -8,27 +16,40 @@ First, run the development server:
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then, open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Prisma Studio
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+You can use Prisma Studio to view and modify the database, by running:
 
-## Learn More
+```bash
+npm prisma studio
+# or
+yarn prisma studio
+```
 
-To learn more about Next.js, take a look at the following resources:
+Then, open [http://localhost:5555 with your browser to see the result.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# User Stories
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Story 1 - Registration Validation
 
-## Deploy on Vercel
+### Acceptance Criteria
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Students cannot be Registered onto a Classroom Course if the limit has been reached and a suitable Error message should be displayed
+2. Students can be Registered onto an Online Course as many times as desired
+3. A Registration with the same Email cannot happen for the same Course more than once
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### Non-functional Criteria
+
+1. Unit tests should be written where appropriate
+
+## Story 2 - Page Rendering
+
+### Acceptance Criteria
+
+1. Once Registered, the Registrations panel should immediately re-render to show the Registered Student
+2. Once Registered, the Course should immediately re-render with an updated Registrations count
+

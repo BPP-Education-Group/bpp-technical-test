@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 import Dropdown from './dropdown';
 import Input from './input';
 import InputSpacer from './input-spacer';
-import { Course } from '@/types/course';
+import { Course } from '@prisma/client';
 
 const FormError = ({ errorMessage } : { errorMessage: string }) => {
   return <p className="text-red-300 mt-1">{errorMessage}</p>;
@@ -50,7 +50,7 @@ export default function RegistrationForm(props: RegisterCourseProps) {
         <Dropdown 
           placeholder="Course"
           courses={props.courses} 
-          name="course"
+          name="courseId"
           register={register} 
           validationSchema={{ required: true }}
         />

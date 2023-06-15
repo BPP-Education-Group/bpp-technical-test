@@ -1,4 +1,4 @@
-import { Course } from "../types/course"
+import { Course } from '@prisma/client';
 
 interface DropdownProps {
   courses: Course[];
