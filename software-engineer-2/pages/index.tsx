@@ -3,7 +3,6 @@ import RegistrationForm from '../components/registration-form';
 import Courses from '../components/courses'
 import Registrations from '../components/registrations'
 import { PrismaClient, Course, Registration } from '@prisma/client';
-import { useState } from 'react';
 
 const prisma = new PrismaClient();
 
@@ -20,7 +19,7 @@ export async function getServerSideProps() {
       registrations: registrations
     }
   };
-}
+};
 
 type IndexProps = {
   courses: Course[];
@@ -28,11 +27,6 @@ type IndexProps = {
 };
 
 export default function Index({ courses, registrations } : IndexProps) {
-  const [stateRegistrations, setRegistrations] = useState(registrations);
-  const [stateCourses, setCourseState] = useState(courses);
-
-  console.log(`stateRegistrations is: ${JSON.stringify(stateRegistrations)}`);
-  
   return (
     <>
       <Head>
@@ -44,27 +38,24 @@ export default function Index({ courses, registrations } : IndexProps) {
         />
       </Head>
       <div className="flex">
+
         <section className="w-1/3 bg-gray-800 h-screen p-8">
           <div className="mb-3">
             <h2 className="text-3xl text-white">Register onto Course</h2>
           </div>
 
-          <RegistrationForm
-            courses={stateCourses}
-            registrations={registrations}
-            setRegistrations={setRegistrations}
-            setCourseState={setCourseState}
-          />
+          <RegistrationForm courses={courses} />
+        </section>
 
-        </section>
         <section className="w-2/3 h-screen p-8">
-         <Courses courses={stateCourses}/>
+          <Courses courses={courses}/>
         </section>
+
         <section className="w-2/3 h-screen p-8">
           <div className="mb-3">
             <h2 className="text-3xl text-gray-700">Registrations</h2>
           </div>
-         <Registrations registrations={stateRegistrations} />
+          <Registrations registrations={registrations} />
         </section>
       </div>
     </>

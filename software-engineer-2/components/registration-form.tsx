@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 import Dropdown from './dropdown';
 import Input from './input';
 import InputSpacer from './input-spacer';
-import { Prisma, Course, Registration } from '@prisma/client';
+import { Prisma, Course } from '@prisma/client';
 import { RegistrationForm as RegistrationFormDto } from '@/types/RegistrationForm';
 
 const FormError = ({ errorMessage } : { errorMessage: string }) => {
@@ -11,40 +11,17 @@ const FormError = ({ errorMessage } : { errorMessage: string }) => {
 
 interface RegisterCourseProps {
   courses: Course[];
-  registrations: Registration & { course: Course }[]
-  setRegistrations: () => {};
-  setCourseState: () => {};
 }
 
 export default function RegistrationForm(props: RegisterCourseProps) {
-  const { register, handleSubmit, setError, clearErrors, formState: { errors } } = useForm();
+  const { register, handleSubmit, setError, formState: { errors } } = useForm();
 
   const onFormSubmission = async (data: any, event: any) => {
-    clearErrors();
-
     try {
-      const createdRegistration = await saveRegistrationForm(data);
+      await saveRegistrationForm(data);
       event.target.reset();
-      props.setRegistrations(previousState => [...previousState, createdRegistration])
-
-      let updatedCourses = props.courses.filter(course => course.id !== createdRegistration.courseId);
-      updatedCourses.unshift(createdRegistration.course);
-      props.setCourseState(updatedCourses);
-
-      console.log(`Updated courses is: ${JSON.stringify(updatedCourses)}`)
-
-      // const updatedCourses = props.registrations.map((registration) => {
-      //   return registration.course;
-      // });
-      // props.setCourseState(previousState => [...previousState, updatedCourses]);
-
     } catch (err) {
-      const error = err as Error;
-      console.log(error.message);
-
-      setError('serverError', {
-        message: error.message
-      });
+      console.log(err);
     }
   };
 
@@ -111,15 +88,10 @@ async function saveRegistrationForm(registrationForm: RegistrationFormDto) {
   });
 
   if (!response.ok) {
-    const responseText = await response.text();
-    const responseTextObject = JSON.parse(responseText);
-    console.log(`Response text is: ${responseText}`);
-
-    throw new Error(responseTextObject.message);
+    throw new Error(response.statusText);
   }
   return await response.json();
 }
-
 
 function transformRegistrationForm(registrationForm: RegistrationFormDto): Prisma.RegistrationCreateInput {
   const registrationDb: Prisma.RegistrationCreateInput = {
