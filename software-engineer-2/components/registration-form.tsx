@@ -1,9 +1,10 @@
 import { useForm } from 'react-hook-form';
+import { Course } from '@prisma/client';
+
 import Dropdown from './dropdown';
 import Input from './input';
 import InputSpacer from './input-spacer';
-import { Prisma, Course } from '@prisma/client';
-import { RegistrationForm as RegistrationFormDto } from '@/types/RegistrationForm';
+import saveRegistrationForm from '@/lib/services/saveRegistrationFormService';
 
 const FormError = ({ errorMessage } : { errorMessage: string }) => {
   return <p className="text-red-300 mt-1">{errorMessage}</p>;
@@ -77,31 +78,4 @@ export default function RegistrationForm(props: RegisterCourseProps) {
       </button>
     </form>
   );
-}
-
-async function saveRegistrationForm(registrationForm: RegistrationFormDto) {
-  let registrationData = transformRegistrationForm(registrationForm)
-
-  const response = await fetch('/api/registrations', {
-    method: 'POST',
-    body: JSON.stringify(registrationData)
-  });
-
-  if (!response.ok) {
-    throw new Error(response.statusText);
-  }
-  return await response.json();
-}
-
-function transformRegistrationForm(registrationForm: RegistrationFormDto): Prisma.RegistrationCreateInput {
-  const registrationDb: Prisma.RegistrationCreateInput = {
-    firstName: registrationForm.firstName,
-    lastName: registrationForm.lastName,
-    email: registrationForm.email,
-    course: {
-      connect: { id: parseInt(registrationForm.courseId, 10) }
-    }
-  };
-
-  return registrationDb;
 }

@@ -12,7 +12,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   try {
     const registration: Prisma.RegistrationCreateInput = JSON.parse(req.body);
     const savedRegistration = await prisma.registration.create({ data: registration }); 
-    console.log("api-registration-saved: " + savedRegistration)
+    console.log("api-registration-saved: " + JSON.stringify(savedRegistration))
     res.status(200).json(savedRegistration);
   } catch (err) {
     console.log("error: " + err)
