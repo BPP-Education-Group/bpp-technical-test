@@ -68,8 +68,6 @@ export default function RegistrationForm(props: RegisterCourseProps) {
         {errors.course && <FormError errorMessage="Course is required" />}
       </InputSpacer>
 
-      { errors.serverError && <FormError errorMessage={errors.serverError.message as string} />}
-
       <button
         className="bg-blue-500 rounded-md p-4 text-blue-100"
         type="submit"
