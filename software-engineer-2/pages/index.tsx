@@ -2,8 +2,8 @@ import Head from 'next/head';
 import RegistrationForm from '../components/registration-form';
 import Courses from '../components/courses'
 import Registrations from '../components/registrations'
-import { PrismaClient, Prisma, Course, Registration } from '@prisma/client';
-import { RegistrationForm as RegistrationFormDto } from '@/types/RegistrationForm';
+import { PrismaClient, Course, Registration } from '@prisma/client';
+import { useState } from 'react';
 
 const prisma = new PrismaClient();
 
@@ -22,27 +22,17 @@ export async function getServerSideProps() {
   };
 }
 
-async function saveRegistrationForm(registrationForm: RegistrationFormDto) {
-  let registrationData = transformRegistrationForm(registrationForm)
-
-  const response = await fetch('/api/registrations', {
-    method: 'POST',
-    body: JSON.stringify(registrationData)
-  });
-
-  if (!response.ok) {
-    throw new Error(response.statusText);
-  }
-  return await response.json();
-}
-
 type IndexProps = {
   courses: Course[];
   registrations: (Registration & { course: Course })[];
 };
 
 export default function Index({ courses, registrations } : IndexProps) {
+  const [stateRegistrations, setRegistrations] = useState(registrations);
+  const [stateCourses, setCourseState] = useState(courses);
 
+  console.log(`stateRegistrations is: ${JSON.stringify(stateRegistrations)}`);
+  
   return (
     <>
       <Head>
@@ -60,41 +50,23 @@ export default function Index({ courses, registrations } : IndexProps) {
           </div>
 
           <RegistrationForm
-            onSubmit={async (data: RegistrationFormDto, event: any) => {
-              try {
-                await saveRegistrationForm(data);
-                event.target.reset();
-              } catch (err) {
-                console.log(err);
-              }
-            }}
-            courses={courses}
+            courses={stateCourses}
+            registrations={registrations}
+            setRegistrations={setRegistrations}
+            setCourseState={setCourseState}
           />
 
         </section>
         <section className="w-2/3 h-screen p-8">
-         <Courses courses={courses} />
+         <Courses courses={stateCourses}/>
         </section>
         <section className="w-2/3 h-screen p-8">
           <div className="mb-3">
             <h2 className="text-3xl text-gray-700">Registrations</h2>
           </div>
-         <Registrations registrations={registrations} />
+         <Registrations registrations={stateRegistrations} />
         </section>
       </div>
     </>
   );
-}
-
-function transformRegistrationForm(registrationForm: RegistrationFormDto): Prisma.RegistrationCreateInput {
-  const registrationDb: Prisma.RegistrationCreateInput = {
-    firstName: registrationForm.firstName,
-    lastName: registrationForm.lastName,
-    email: registrationForm.email,
-    course: {
-      connect: { id: parseInt(registrationForm.courseId, 10) }
-    }
-  };
-
-  return registrationDb;
 }
