@@ -25,7 +25,7 @@ Then, open [http://localhost:3000](http://localhost:3000) with your browser to s
 You can use Prisma Studio to view and modify the database, by running:
 
 ```bash
-npm prisma studio
+npx prisma studio
 # or
 yarn prisma studio
 ```
