@@ -1,8 +1,10 @@
 import { useForm } from 'react-hook-form';
+import { Course } from '@prisma/client';
+
 import Dropdown from './dropdown';
 import Input from './input';
 import InputSpacer from './input-spacer';
-import { Course } from '@prisma/client';
+import saveRegistrationForm from '@/lib/services/saveRegistrationFormService';
 
 const FormError = ({ errorMessage } : { errorMessage: string }) => {
   return <p className="text-red-300 mt-1">{errorMessage}</p>;
@@ -10,13 +12,22 @@ const FormError = ({ errorMessage } : { errorMessage: string }) => {
 
 interface RegisterCourseProps {
   courses: Course[];
-  onSubmit: any;
 }
 
 export default function RegistrationForm(props: RegisterCourseProps) {
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit, setError, formState: { errors } } = useForm();
+
+  const onFormSubmission = async (data: any, event: any) => {
+    try {
+      await saveRegistrationForm(data);
+      event.target.reset();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
-    <form className="flex flex-col" onSubmit={handleSubmit(props.onSubmit)}>
+    <form className="flex flex-col" onSubmit={handleSubmit(onFormSubmission)}>
       <InputSpacer>
         <Input
           placeholder="First Name"
