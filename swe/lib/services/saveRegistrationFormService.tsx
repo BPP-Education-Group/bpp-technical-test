@@ -4,7 +4,7 @@ import transformRegistrationForm from '../utils/transformRegistrationForm';
 export default async function saveRegistrationForm(registrationForm: RegistrationForm) {
   let registrationData = transformRegistrationForm(registrationForm)
 
-  const response = await fetch('/api/registrations', {
+  const response = await fetch('/api/register', {
     method: 'POST',
     body: JSON.stringify(registrationData)
   });
