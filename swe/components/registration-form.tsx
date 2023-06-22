@@ -1,9 +1,13 @@
-import { Course } from "@prisma/client";
+import { Course, Registration } from "@prisma/client";
+import { useRouter } from 'next/router';
 import { useForm } from "react-hook-form";
+
 import Dropdown from "./dropdown";
 import Input from "./input";
 import InputSpacer from "./input-spacer";
 import saveRegistrationForm from "@/lib/services/saveRegistrationFormService";
+import checkDuplicateEmail from "@/lib/utils/checkDuplicateEmail";
+import checkCapacity from "@/lib/utils/checkCapacity";
 
 const FormError = ({ errorMessage }: { errorMessage: string }) => {
   return <p className="text-red-300 mt-1">{errorMessage}</p>;
@@ -11,17 +15,27 @@ const FormError = ({ errorMessage }: { errorMessage: string }) => {
 
 interface RegisterCourseProps {
   courses: Course[];
+  registrations: (Registration & { course: Course })[];
 }
 
 export default function RegistrationForm(props: RegisterCourseProps) {
-  const { register, handleSubmit, setError, formState: { errors } } = useForm();
+  const { courses, registrations } = props;
+  const router = useRouter();
+  const { register, handleSubmit, setError, formState: { errors }, reset } = useForm();
 
   const onFormSubmission = async (data: any, event: any) => {
-    try {
-      await saveRegistrationForm(data);
-      event.target.reset();
-    } catch (err) {
-      console.log(err);
+    const { courseId, email } = data;
+    const isOpenCourse = checkCapacity(courseId, courses, setError)
+    const isValidEmail = checkDuplicateEmail(courseId, email, setError, registrations);
+
+    if (isOpenCourse && isValidEmail) {
+      try {
+        await saveRegistrationForm(data);
+        event.target.reset();
+        router.replace(router.asPath);
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
 
@@ -35,7 +49,7 @@ export default function RegistrationForm(props: RegisterCourseProps) {
           <Input
             placeholder="First Name"
             name="firstName"
-            register={register} 
+            register={register}
             validationSchema={{ required: true }}
           />
           {errors.firstName && (
@@ -46,7 +60,7 @@ export default function RegistrationForm(props: RegisterCourseProps) {
           <Input
             placeholder="Last Name"
             name="lastName"
-            register={register} 
+            register={register}
             validationSchema={{ required: true }}
           />
           {errors.lastName && <FormError errorMessage="Last Name is required" />}
@@ -55,28 +69,33 @@ export default function RegistrationForm(props: RegisterCourseProps) {
           <Input
             placeholder="Email"
             name="email"
-            register={register} 
+            register={register}
             validationSchema={{ required: true }}
           />
           {errors.email && <FormError errorMessage="Email is required" />}
         </InputSpacer>
         <InputSpacer>
-          <Dropdown 
+          <Dropdown
             placeholder="Course"
-            courses={props.courses} 
+            courses={props.courses}
             name="courseId"
-            register={register} 
+            register={register}
             validationSchema={{ required: true }}
           />
           {errors.course && <FormError errorMessage="Course is required" />}
         </InputSpacer>
-
+        {/* Add custom error using react-hook-form for custom validation rules */}
+        {errors.capacity && <FormError errorMessage="Selected course is full, please select others." />}
+        {errors.duplicateEmail && <FormError errorMessage="This email has been registered previously the course. Please use a different email." />}
         <button
           className="bg-blue-500 rounded-md p-4 text-blue-100"
           type="submit"
+          name="Register"
         >
           Register
         </button>
+        {/* Add Reset button */}
+        <button className="bg-blue-500 rounded-md p-4 m-4 text-blue-100" onClick={reset} name="Reset" type="reset">Reset</button>
       </form>
     </>
   );

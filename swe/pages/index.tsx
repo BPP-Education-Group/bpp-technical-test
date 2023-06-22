@@ -42,7 +42,7 @@ export default function HomePage({ courses, registrations }: HomePageProps) {
       </Head>
       <div className="flex">
         <section className="w-1/3 bg-gray-800 h-screen p-8">
-          <RegistrationForm courses={courses} />
+          <RegistrationForm courses={courses} registrations={registrations} />
         </section>
         <section className="w-2/3 h-screen p-8">
           <Courses courses={courses} />
