@@ -4,7 +4,7 @@ import { PrismaClient, Prisma } from "@prisma/client";
 const prisma = new PrismaClient();
 
 export default async function handler(
-  req: NextApiRequest, 
+  req: NextApiRequest,
   res: NextApiResponse
 ) {
   if (req.method !== "POST") {
@@ -15,10 +15,22 @@ export default async function handler(
 
   try {
     const registration: Prisma.RegistrationCreateInput = JSON.parse(req.body);
+    const courseId = registration.course.connect?.id
     const savedRegistration = await prisma.registration.create({
       data: registration,
     });
     res.status(200).json(savedRegistration);
+
+    /* find the record and increment number field */
+    await prisma.course.update({
+      where: { id: courseId },
+      data: {
+        registered: {
+          increment: 1
+        }
+      }
+    });
+
   } catch (err) {
     console.log("error: " + String(err));
     res
