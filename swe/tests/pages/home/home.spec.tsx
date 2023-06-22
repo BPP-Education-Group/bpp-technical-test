@@ -1,9 +1,52 @@
-import HomePage, { HomePageProps } from "@/pages";
-import { RegistrationForm } from "@/types/RegistrationForm";
-import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { render, screen } from "@testing-library/react";
 import { rest } from "msw";
 import { setupServer } from "msw/node";
+
+import HomePage, { HomePageProps } from "@/pages";
+import { RegistrationForm } from "@/types/RegistrationForm";
+
+jest.mock('next/router', () => ({
+  useRouter() {
+    return {
+      asPath: '',
+      replace: jest.fn()
+    };
+  },
+}));
+
+
+const mockCourses: HomePageProps["courses"] = [
+  {
+    id: 1,
+    title: "Course 1",
+    description: "Description 1",
+    cost: 10,
+    type: "Online",
+    capacity: 0,
+    registered: 0,
+  },
+  {
+    id: 2,
+    title: "Course 2",
+    description: "Description 2",
+    cost: 20,
+    type: "Classroom",
+    capacity: 0,
+    registered: 0,
+  },
+];
+
+const mockRegistrations: HomePageProps["registrations"] = [
+  {
+    id: 2,
+    firstName: "Jane",
+    lastName: "Smith",
+    email: "jane@example.com",
+    courseId: 2,
+    course: mockCourses[1],
+  },
+];
 
 const server = setupServer(
   rest.post("/api/register", async (req, res, ctx) => {
@@ -81,7 +124,7 @@ describe("HomePage", () => {
     expect(screen.getByText("Jane Smith")).toBeInTheDocument();
   });
 
-  it("handles form submission correctly", async () => {
+  it("handles form submission correctly and updates Registration List", async () => {
     const mockRegistration: RegistrationForm = {
       firstName: "John",
       lastName: "Doe",
@@ -104,30 +147,9 @@ describe("HomePage", () => {
       })
     );
 
-    const mockCourses: HomePageProps["courses"] = [
-      {
-        id: 1,
-        title: "Course 1",
-        description: "Description 1",
-        cost: 10,
-        type: "Online",
-        capacity: 0,
-        registered: 0,
-      },
-      {
-        id: 2,
-        title: "Course 2",
-        description: "Description 2",
-        cost: 20,
-        type: "Classroom",
-        capacity: 0,
-        registered: 0,
-      },
-    ];
+    render(<HomePage courses={mockCourses} registrations={mockRegistrations} />);
 
     const user = userEvent.setup();
-
-    render(<HomePage courses={mockCourses} registrations={[]} />);
 
     // Enter form input values
     user.type(
@@ -147,6 +169,7 @@ describe("HomePage", () => {
     );
 
     // Submit the form
+
     user.click(screen.getByRole("button", { name: "Register" }));
 
     // Assert that form fields are cleared
@@ -154,4 +177,10 @@ describe("HomePage", () => {
     expect(screen.getByPlaceholderText("Last Name")).toHaveValue("");
     expect(screen.getByPlaceholderText("Email")).toHaveValue("");
   });
+
+  /* Add cypress for page level integration tests to test useRouter, updates on Registration and 
+  Course components after refetch. 
+
+  it('increments the number of Course Registered and Reigsteration item when a register request succeeds', async () => {
+  }) */
 });
