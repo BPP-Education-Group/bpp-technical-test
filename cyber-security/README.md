@@ -1,6 +1,6 @@
-# Technical Presentation Exercise
+# Cyber Security Architecture Kata
 
-Welcome to BPP's cyber security exercise! We want you to create a small presentation and present it to the interviewing team.
+Welcome to BPP's cyber security kata! We want you to create a small presentation and present it to the interviewing team.
 
 ## Overview
 BPP are designing a new web platform and we want you to help us secure it.
