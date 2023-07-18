@@ -6,7 +6,7 @@ Welcome to BPP's cyber security kata! We want you to create a small presentation
 BPP are designing a new web platform and we want you to help us secure it.
 
 ## What we want from you
-Based on the application design on the [PDF](https://github.com/BPP-Education-Group/bpp-technical-test/blob/naineshmehta-bpp-patch-1/cyber-security/Cyber-Security-Kata.pdf) in this repository, we want you to tell us how you would protect this system.
+Based on the application design on the [PDF](https://github.com/BPP-Education-Group/bpp-technical-test/blob/main/cyber-security/Cyber-Security-Kata.pdf) in this repository, we want you to tell us how you would protect this system.
 
 This is what we are looking for:
 * **Preventative controls** - how well can you block unauthorised access?
