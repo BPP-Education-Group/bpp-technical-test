@@ -15,7 +15,7 @@ This is what we are looking for:
 * **Incident response** - how quickly and effectively can you respond and recover from issues?
 
 ### A few important notes:
-* Please keep this presentation less than 30 minutes long.
+* Please keep this presentation less than 30 minutes long and do not spend more than 90 minutes working on it.
 * You can use any presentation tool you wish. Google Slides, Powerpoint etc. 
 * This architecture is design for Amazon Web Services (AWS).
 * Please mention any specific tools / frameworks that you would use and why.
