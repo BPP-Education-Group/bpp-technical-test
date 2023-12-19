@@ -1,4 +1,4 @@
-# bpp-sqa-assessment-1
+# bpp-sqe-assessment-1
 
 This test focusses on automation. We would like you to automate the following action:
 
