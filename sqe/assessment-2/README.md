@@ -1,4 +1,4 @@
-# bpp-sqa-assessment
+# bpp-sqe-assessment-2
 
 Welcome to a really simple to-do list micro-app. We'd like you to review the project, add in some further tests, highlight any issues with the project, and provide some recommendations on how best to improve the quality of this micro-app.
 
@@ -24,7 +24,3 @@ $ npm run build
 # To run the prod server
 $ npm start
 ```
-
-## Submission
-
-Please download as an archive (ZIP) & either repush to your own Github/Gitlab repository.
