@@ -6,6 +6,25 @@ const datastore = require('../lib/datastore');
 
 const router = module.exports = express.Router();
 
+/**
+ * @swagger
+ * /lists:
+ *   get:
+ *     tags:
+ *       - Lists
+ *     summary: List all Lists
+ *     responses:
+ *       200:
+ *         description: The complete list of lists
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *       default:
+ *         $ref: '#/components/responses/ErrDefault'
+ */
 router.get('/', async (req, res, next) => {
   try {
     const query = yup.object().required()
@@ -42,6 +61,24 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+/**
+ * @swagger
+ * /lists/{listId}:
+ *   get:
+ *     tags:
+ *       - Lists
+ *     summary: Return a specific List
+ *     responses:
+ *       200:
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *       default:
+ *         $ref: '#/components/responses/ErrDefault'
+ */
 router.get('/:listId', async (req, res, next) => {
   try {
     const { listId } = req.params;
@@ -107,6 +144,24 @@ router.get('/:listId', async (req, res, next) => {
   }
 });
 
+/**
+ * @swagger
+ * /lists:
+ *   post:
+ *     tags:
+ *       - Lists
+ *     summary: Create a new List
+ *     responses:
+ *       200:
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *       default:
+ *         $ref: '#/components/responses/ErrDefault'
+ */
 router.post('/', async (req, res, next) => {
   try {
     const { data } = yup.object().required()
@@ -135,6 +190,24 @@ router.post('/', async (req, res, next) => {
   }
 });
 
+/**
+ * @swagger
+ * /lists/{listId}:
+ *   post:
+ *     tags:
+ *       - Lists
+ *     summary: Update a List
+ *     responses:
+ *       200:
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *       default:
+ *         $ref: '#/components/responses/ErrDefault'
+ */
 router.patch('/:listId', async (req, res, next) => {
   try {
     const { listId } = req.params;
@@ -179,6 +252,24 @@ router.patch('/:listId', async (req, res, next) => {
   }
 });
 
+/**
+ * @swagger
+ * /lists/{listId}:
+ *   delete:
+ *     tags:
+ *       - Lists
+ *     summary: Delete a List
+ *     responses:
+ *       200:
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *       default:
+ *         $ref: '#/components/responses/ErrDefault'
+ */
 router.delete('/:listId', async (req, res, next) => {
   try {
     const { listId } = req.params;

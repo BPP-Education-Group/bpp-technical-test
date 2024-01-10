@@ -6,6 +6,24 @@ const datastore = require('../lib/datastore');
 
 const router = module.exports = express.Router();
 
+/**
+ * @swagger
+ * /tasks:
+ *   get:
+ *     tags:
+ *       - Tasks
+ *     summary: List all tasks
+ *     responses:
+ *       200:
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *       default:
+ *         $ref: '#/components/responses/ErrDefault'
+ */
 router.get('/', async (req, res, next) => {
   try {
     const query = yup.object().required()
