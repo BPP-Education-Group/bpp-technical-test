@@ -1,10 +1,18 @@
-# Principal SRE - Code Challenge
+# SRE - Code Challenge
 
 Welcome to the code challenge for the Site Reliability Engineer (SRE) role at BPP. This challenge will give you an opportunity to showcase your skills in Terraform, Git, and Shell scripting, as well as your understanding of AWS resources. The challenge is divided into three parts, each focusing on a specific aspect.
 
 Good luck! We're excited to see your solutions and how you tackle each part of the challenge.
 
 ## Part 1 - Terraform: Create AWS EC2 Instance
+
+### Instructions
+
+1. Clone the repo.
+2. Write the Terraform code to create an AWS EC2 instance and define the necessary resources according to the acceptance criteria.
+3. Provide clear comments in your code, or verbally explain the purpose and functionality of each resource or configuration block.
+4. Deploy your Terraform code to the _BPP Interviews AWS Account_.
+   - AWS credentials will be provided.
 
 ### Acceptance Criteria
 
@@ -17,17 +25,15 @@ Good luck! We're excited to see your solutions and how you tackle each part of t
 3. Define a security group resource for the EC2 instance with the following requirements:
    - Allow inbound traffic on port 22 (SSH) from any source IP address
    - Allow outbound traffic to any destination IP address on all ports
+4. Resources are deployed to the _BPP Interviews AWS Account_.
+
+## Part 2 - Terraform: Refactoring
 
 ### Instructions
 
-1. Create a new feature branch in the BPP GitHub repository to work on Part 1 of the code challenge.
-2. Checkout the newly created branch in your local development environment.
-3. Write the Terraform code to create an AWS EC2 instance and define the necessary resources according to the acceptance criteria.
-4. Provide clear comments in your code, or verbally explain the purpose and functionality of each resource or configuration block.
-5. Deploy your Terraform code to the BPP Interviews AWS Account using credentials supplied during the interview.
-6. Commit and push your code changes to the remote branch.
-
-## Part 2 - Terraform: Refactoring
+1. Modify the Terraform code to meet the necessary acceptance criteria.
+2. Provide clear comments in your code, or verbally explain the purpose and functionality of each resource or configuration block.
+3. Deploy your Terraform code to the _BPP Interviews AWS Account_.
 
 ### Acceptance Criteria
 
@@ -37,15 +43,14 @@ Good luck! We're excited to see your solutions and how you tackle each part of t
    - Allows the Environment Tag to be parameterised
 3. The AWS resources should not be modified during the refactoring process.
 
+## Part 3 - Shell Scripting: Recursive Text Search
+
 ### Instructions
 
-1. Use the same feature branch to make the Part 2 amends.
-2. Modify the Terraform code to meet the necessary acceptance criteria.
-3. Provide clear comments in your code, or verbally explain the purpose and functionality of each resource or configuration block.
-4. Deploy your Terraform code to the BPP Interviews AWS Account using credentials supplied during the interview.
-5. Commit and push your code changes to the remote branch.
-
-## Part 3 - Shell Scripting: Recursive Text Search
+1. Choose a shell scripting language (e.g., Bash, Zsh) that you prefer to use for this task.
+2. Write a shell script that meets the acceptance criteria mentioned above.
+3. Test your script locally to ensure it is working as expected.
+4. Demonstrate the functionality of your script by searching for the text pattern "ec2" within all `.tf` files generated as part of the code written in Part 1 and Part 2.
 
 ### Acceptance Criteria
 
@@ -58,12 +63,3 @@ Write a Shell Script that:
 3. Outputs the File Paths of all matching files.
 4. Outputs the Total Count of files found.
 5. Handles cases where no matching files are found gracefully, displaying an appropriate message.
-
-### Instructions
-
-1. Use the same feature branch to make the Part 3 amends.
-2. Choose a shell scripting language (e.g., Bash, Zsh) that you prefer to use for this task.
-3. Write a shell script that meets the acceptance criteria mentioned above.
-4. Test your script locally to ensure it is working as expected.
-5. Demonstrate the functionality of your script by searching for the text pattern "ec2" within all `.tf` files generated as part of the code written in Part 1 and Part 2.
-6. Commit and push your code changes to the remote branch.
