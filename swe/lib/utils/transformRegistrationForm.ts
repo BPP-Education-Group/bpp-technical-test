@@ -1,15 +1,13 @@
 import { Prisma } from '@prisma/client';
-import { RegistrationForm as RegistrationFormDto } from '@/types/RegistrationForm';
+import { RegistrationFormDto } from '@/types/RegistrationFormDto';
 
-export default function transformRegistrationForm(registrationForm: RegistrationFormDto): Prisma.RegistrationCreateInput {
-  const registrationDb: Prisma.RegistrationCreateInput = {
-    firstName: registrationForm.firstName,
-    lastName: registrationForm.lastName,
-    email: registrationForm.email,
-    course: {
-      connect: { id: parseInt(registrationForm.courseId, 10) }
-    }
-  };
+const transformRegistrationForm = (registrationForm: RegistrationFormDto): Prisma.RegistrationCreateInput => ({
+  firstName: registrationForm.firstName,
+  lastName: registrationForm.lastName,
+  email: registrationForm.email,
+  course: {
+    connect: { id: parseInt(registrationForm.courseId, 10) }
+  }
+});
 
-  return registrationDb;
-}
+export default transformRegistrationForm;

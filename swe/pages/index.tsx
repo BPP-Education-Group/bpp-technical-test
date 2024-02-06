@@ -1,5 +1,7 @@
-import { PrismaClient, Course, Registration } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 import Head from "next/head";
+
+import { Course, RegistrationWithCourse } from "@/types";
 import Courses from "../components/courses";
 import RegistrationForm from "../components/registration-form";
 import Registrations from "../components/registrations";
@@ -24,12 +26,12 @@ export async function getServerSideProps() {
     }
   };
 }
-export type HomePageProps = {
+export type Props = {
   courses: Course[];
-  registrations: (Registration & { course: Course })[];
+  registrations: RegistrationWithCourse[];
 };
 
-export default function HomePage({ courses, registrations }: HomePageProps) {
+export default function HomePage({ courses, registrations }: Props) {
   return (
     <>
       <Head>

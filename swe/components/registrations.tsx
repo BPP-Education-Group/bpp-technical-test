@@ -1,17 +1,18 @@
-import { HomePageProps } from "@/pages";
 import Image from "next/image";
 
-interface RegistrationsProps {
-  registrations: HomePageProps["registrations"];
+import { RegistrationWithCourse } from "@/types";
+
+export interface Props {
+  registrations: RegistrationWithCourse[];
 }
 
-export default function Registrations(props: RegistrationsProps) {
+export default function Registrations({ registrations }: Props) {
   return (
     <>
       <div className="mb-3">
         <h2 className="text-3xl text-gray-700">Registrations</h2>
       </div>
-      {props.registrations.map((registration, i: number) => (
+      {registrations.map((registration, i: number) => (
         <div className="mb-3" key={i}>
           <div className="border rounded-lg p-4 flex">
             <div className="my-auto">
