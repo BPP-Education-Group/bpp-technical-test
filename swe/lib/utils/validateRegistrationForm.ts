@@ -4,7 +4,7 @@ export class ValidationError extends Error {}
 
 export const validateRegistrationForm = async (requestBody: Prisma.RegistrationCreateInput) => {
     if (!requestBody) {
-        throw new ValidationError('Empty request body');
+        throw new ValidationError("Empty request body");
     }
 };
 
