@@ -1,6 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { PrismaClient, Prisma } from "@prisma/client";
 
+import validateRegistrationForm from '../../lib/utils/validateRegistrationForm';
+
 const prisma = new PrismaClient();
 
 export default async function handler(
@@ -14,15 +16,17 @@ export default async function handler(
   }
 
   try {
-    const registration: Prisma.RegistrationCreateInput = JSON.parse(req.body);
+    const requestBody: Prisma.RegistrationCreateInput = req.body;
+    await validateRegistrationForm(requestBody);
+
     const savedRegistration = await prisma.registration.create({
-      data: registration,
+      data: requestBody,
     });
     res.status(200).json(savedRegistration);
   } catch (err) {
-    console.log("error: " + String(err));
+    console.log(err);
     res
-      .status(400)
+      .status(500)
       .json({ message: "Something went wrong", error: String(err) });
   }
 };
