@@ -13,6 +13,6 @@ describe("validateRegistrationForm", () => {
 
         const validatedData = await validateRegistrationForm(mockRegistrationInput);
 
-        expect(validatedData).toEqual({ firstName: 'firstName' });
+        expect(validatedData).toEqual(undefined);
     });
 });

@@ -1,15 +1,11 @@
 import { Prisma } from "@prisma/client";
-import * as yup from 'yup'
 
-const shape = {
-    firstName: yup.string().required('First name is a required field'),
+export class ValidationError extends Error {}
+
+export const validateRegistrationForm = async (requestBody: Prisma.RegistrationCreateInput) => {
+    if (!requestBody) {
+        throw new ValidationError('Empty request body');
+    }
 };
-
-const formSchema = yup.object().shape(shape);
-
-export const validateRegistrationForm = (requestBody: Prisma.RegistrationCreateInput) => formSchema.validate(requestBody, {
-    abortEarly: false,
-    stripUnknown: true,
-});
 
 export default validateRegistrationForm;
