@@ -1,7 +1,10 @@
 import { Course } from "@prisma/client"
 
-// Courses Components
-export default function Courses({ courses }: { courses: Course[] }) {
+export type Props = {
+  courses: Course[];
+};
+
+export default function Courses({ courses }: Props) {
   return (
     <div className="bg-white rounded-lg shadow-md p-6">
       <h2 className="text-3xl text-gray-700 mb-6">Courses</h2>
@@ -33,7 +36,7 @@ export default function Courses({ courses }: { courses: Course[] }) {
         </thead>
         <tbody className="divide-y divide-gray-200">
           {courses.map((course) => (
-            <tr key={course.id}>
+            <tr key={course.id} data-testid="course-row">
               <td className="py-4 px-6 whitespace-nowrap">{course.id}</td>
               <td className="py-4 px-6 whitespace-nowrap">{course.title}</td>
               <td className="py-4 px-6 whitespace-nowrap">{course.description}</td>

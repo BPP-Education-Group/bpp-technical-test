@@ -9,11 +9,11 @@ const FormError = ({ errorMessage }: { errorMessage: string }) => {
   return <p className="text-red-300 mt-1">{errorMessage}</p>;
 };
 
-interface RegisterCourseProps {
+export interface Props {
   courses: Course[];
 }
 
-export default function RegistrationForm(props: RegisterCourseProps) {
+export default function RegistrationForm({ courses }: Props) {
   const { register, handleSubmit, setError, formState: { errors } } = useForm();
 
   const onFormSubmission = async (data: any, event: any) => {
@@ -63,7 +63,7 @@ export default function RegistrationForm(props: RegisterCourseProps) {
         <InputSpacer>
           <Dropdown 
             placeholder="Course"
-            courses={props.courses} 
+            courses={courses}
             name="courseId"
             register={register} 
             validationSchema={{ required: true }}

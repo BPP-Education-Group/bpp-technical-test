@@ -43,3 +43,11 @@ yarn prisma studio
 ```
 
 Then, open [http://localhost:5555](http://localhost:5555) with your browser launch Prisma Studio.
+
+### Tests
+
+You can run tests via Jest by:
+
+```bash
+yarn jest
+```
