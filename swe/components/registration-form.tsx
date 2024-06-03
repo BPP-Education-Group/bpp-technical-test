@@ -5,21 +5,16 @@ import Input from "./input";
 import InputSpacer from "./input-spacer";
 import saveRegistrationForm from "@/lib/services/saveRegistrationFormService";
 
-const FormError = ({ errorMessage }: { errorMessage: string }) => {
-  return <p className="text-red-300 mt-1">{errorMessage}</p>;
-};
-
 export interface Props {
   courses: Course[];
 }
 
 export default function RegistrationForm({ courses }: Props) {
-  const { register, handleSubmit, setError, formState: { errors } } = useForm();
+  const { register, handleSubmit } = useForm();
 
   const onFormSubmission = async (data: any, event: any) => {
     try {
       await saveRegistrationForm(data);
-      event.target.reset();
     } catch (err) {
       console.log(err);
     }
@@ -30,45 +25,42 @@ export default function RegistrationForm({ courses }: Props) {
       <div className="mb-3">
         <h2 className="text-3xl text-white">Register onto Course</h2>
       </div>
-      <form className="flex flex-col" onSubmit={handleSubmit(onFormSubmission)}>
+      <form
+        className="flex flex-col"
+        onSubmit={handleSubmit(onFormSubmission)}
+      >
         <InputSpacer>
           <Input
             placeholder="First Name"
             name="firstName"
-            register={register} 
+            register={register}
             validationSchema={{ required: true }}
           />
-          {errors.firstName && (
-            <FormError errorMessage="First Name is required" />
-          )}
         </InputSpacer>
         <InputSpacer>
           <Input
             placeholder="Last Name"
             name="lastName"
-            register={register} 
+            register={register}
             validationSchema={{ required: true }}
           />
-          {errors.lastName && <FormError errorMessage="Last Name is required" />}
         </InputSpacer>
         <InputSpacer>
           <Input
             placeholder="Email"
             name="email"
-            register={register} 
+            register={register}
             validationSchema={{ required: true }}
           />
-          {errors.email && <FormError errorMessage="Email is required" />}
         </InputSpacer>
         <InputSpacer>
-          <Dropdown 
+          <Dropdown
             placeholder="Course"
             courses={courses}
             name="courseId"
-            register={register} 
+            register={register}
             validationSchema={{ required: true }}
           />
-          {errors.course && <FormError errorMessage="Course is required" />}
         </InputSpacer>
 
         <button
