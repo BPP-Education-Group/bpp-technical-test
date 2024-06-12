@@ -13,11 +13,7 @@ export default function RegistrationForm({ courses }: Props) {
   const { register, handleSubmit } = useForm();
 
   const onFormSubmission = async (data: any, event: any) => {
-    try {
-      await saveRegistrationForm(data);
-    } catch (err) {
-      console.log(err);
-    }
+    await saveRegistrationForm(data);
   };
 
   return (
