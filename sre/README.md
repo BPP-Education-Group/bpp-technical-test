@@ -23,7 +23,7 @@ Good luck! We're excited to see your solutions and how you tackle each part of t
    - Tag 1: Key = "Name", Value = [Choose any appropriate name]
    - Tag 2: Key = "Environment", Value = [Choose any appropriate environment]
 3. Define a security group resource for the EC2 instance with the following requirements:
-   - Allow inbound traffic on port 22 (SSH) from any source IP address
+   - Allow inbound traffic on port 1337 from any source IP address
    - Allow outbound traffic to any destination IP address on all ports
 4. Resources are deployed to the _BPP Interviews AWS Account_.
 
@@ -31,17 +31,20 @@ Good luck! We're excited to see your solutions and how you tackle each part of t
 
 ### Instructions
 
-1. Modify the Terraform code to meet the necessary acceptance criteria.
-2. Provide clear comments in your code, or verbally explain the purpose and functionality of each resource or configuration block.
-3. Deploy your Terraform code to the _BPP Interviews AWS Account_.
+1. Refactoring can be tricky. Consider committing your code.
+2. Modify the Terraform code to meet the necessary acceptance criteria.
+3. Provide clear comments in your code, or verbally explain the purpose and functionality of each resource or configuration block.
+4. Deploy your Terraform code to the _BPP Interviews AWS Account_.
+5. Once accepted, destroy the infrastructure.
 
 ### Acceptance Criteria
 
 1. Refactor the Terraform code from Part 1 to a reusable opinionated Terraform module.
-2. The refactored code should still create all the resources from Part 1, and:
+2. Use this opinionated module from the root module.
+3. The refactored code should still create all the resources from Part 1, and:
    - Allows the Instance Type to be parameterised
    - Allows the Environment Tag to be parameterised
-3. The AWS resources should not be modified during the refactoring process.
+4. The existing AWS resources should not be modified or destroyed during the refactoring process but must remain managed by Terraform.
 
 ## Part 3 - Shell Scripting: Recursive Text Search
 
