@@ -1,70 +1,73 @@
-# Architecture Design Kata
+## Context
 
-## Background
+BPP Tutors need a new **web-based tool** to manage classroom logistics. Your task is to design a **component-level architecture solution** in a diagramming tool of choice that **integrates with existing services** and supports future evolution.
 
-BPP tutors require an efficient mechanism to notify their growing number of students. The primary goal initially is to enable email notifications, which can be sent instantaneously or scheduled for future delivery.
+---
+## 🎯 Goal
 
-## Kata Introduction
+Design a **secure, scalable system** that allows tutors to:
 
-Your task: Design a student email notification system for BPP.
+1. Change classroom **date or location** for a student group via the UI
+2. Automatically **email affected students** about changes (**not via** the UI)
+3. **View a history** of change-related emails via the UI
 
-Your solution design should encompass:
+---
+## 🧑‍🏫 Tutor Workflow (User Journey)
 
-- a Notification Sender Web App for tutors
-- a Notification Engine
-- a Learning Web App for students
+1. Tutor logs into the web app (SSO via an Auth Provider of choice)
+2. Selects a student group and edits the classroom date/location
+3. The change is submitted and persisted
+4. The system triggers an email to affected students (asynchronously)
+5. Tutor can view a list of emails sent for audit or confirmation
 
-The solution should consider specific functional and non-functional requirements, third-party integrations, and constraints detailed below.
+---
+## 🧩 Required Integrations (Existing Services)
 
-## Functional Criteria
+### 🏫 Classroom Scheduling Service (3rd party)
 
-### Notification Sender Web App
+- Headless service – **no UI**
+- Provides a **REST API** to:
+	- Fetch/update classroom date and location
+	- The REST API is Authenticated via an **API Key**. A single key provided to BPP.
+- Emits events on classroom changes via:
+    - **AWS EventBridge Partner Event Bus**
 
-- Tutors should be able to draft email notifications for Students within the App and choose to send them instantly or schedule them for a future date and time.
+### 📧 Email Sending Service (Legacy, On-Prem)
 
-### Learning Web App
+- **SOAP-based**, hosted in BPP's **Data Centre**
+- Accessible only via **VPN into AWS**
+- **Throttled** at **10 req/sec**
+- Being deprecated next year
+- You are the **first consumer**, but more services will integrate soon
 
-- Students should be able to use a Learning App to register their Email Address
+---
+## 🛑 Constraints
 
-### Notification Handling
+- Web UI must be an SPA (e.g., React / Angular)
+- Tutors authenticate via an Auth Provider (not specified, personal choice)
+- System should gracefully handle **throttling**
+- Should be designed to support **eventual migration away** from the legacy email service
 
-- The system should send email notifications either instantly or at the scheduled time.
-- Notifications should be sent to the student's registered email address as an email alert.
+---
 
-## Non-Functional Criteria
+## 💡 Architecture Considerations
 
-- Some email notifications are important and can be scheduled to be delivered to all 100,000 students at once.
+- How will you decouple the frontend from external systems?
+- What AWS services will help persist and audit data?
+- How will you **buffer/throttle** requests to the email service?
+- Can your architecture **abstract** email sending to ease migration later?
 
-## Constraints
+---
 
-- Emails should be sent using a third-party, SaaS Email Sender via an API.
-- The SaaS Email Sender API has a burst-limit of 10,000, and allows an additional 10,000 requests every minute, with a maximum equal to the burst-limit.
-- BPP is currently piloting 2 other SaaS Email Senders, as the existing contract expires in 6 months.
+## 📦 Deliverables
 
-------
+Provide:
 
-## Part 2 - Additional Requirements
-
-### 1. Auditing
-
-For the Notification Sender Web App:
-
-- An audit of the notification should be stored and viewable within the App.
-- Each audit record should have a retention period of 3 months and should be deleted after this period.
-
-### 2. In-App Notifications
-
-For the Notification Handling:
-
-- The system should be capable of sending both Emails and In-App Notifications.
-- It should detect if a student is currently logged onto their Learning Web App.
-- If the student is online and active:
-  - The notification should appear on their screen as an in-app notification, ensuring immediate visibility.
-- If the student is offline:
-  - The student should receive just an email notification
-
-### 3. Multi-language Support
-
-For the Notification Handling:
-
-- The notification should be translated from English to the appropriate language, either English or French, depending on the student's preference.
+1. A **component-level architecture diagram**
+    - Use AWS services where appropriate
+    - Indicate integration points with third-party/legacy systems
+2. Brief notes on:
+    - Your service choices and rationale
+    - How security/authentication is handled
+    - How your design scales and evolves (especially post-email migration)
+    - Networking/security boundaries (e.g., accessing VPN-only services)
