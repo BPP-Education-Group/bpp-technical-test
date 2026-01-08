@@ -1,9 +1,11 @@
+"use client";
+
+import saveRegistrationForm from "@/lib/services/saveRegistrationFormService";
 import { Course } from "@prisma/client";
 import { useForm } from "react-hook-form";
 import Dropdown from "./dropdown";
 import Input from "./input";
 import InputSpacer from "./input-spacer";
-import saveRegistrationForm from "@/lib/services/saveRegistrationFormService";
 
 export interface Props {
   courses: Course[];
@@ -21,10 +23,7 @@ export default function RegistrationForm({ courses }: Props) {
       <div className="mb-3">
         <h2 className="text-3xl text-white">Register onto Course</h2>
       </div>
-      <form
-        className="flex flex-col"
-        onSubmit={handleSubmit(onFormSubmission)}
-      >
+      <form className="flex flex-col" onSubmit={handleSubmit(onFormSubmission)}>
         <InputSpacer>
           <Input
             placeholder="First Name"
