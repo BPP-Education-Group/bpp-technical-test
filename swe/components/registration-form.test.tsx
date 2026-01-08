@@ -1,19 +1,13 @@
-import { Prisma } from "@prisma/client";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { rest } from "msw";
-import { setupServer } from "msw/node";
 
 import { RegistrationFormDto } from "@/prisma/types/RegistrationFormDto";
 import RegistrationForm, { Props } from "./registration-form";
 
-const server = setupServer();
+// Mock the server action
+jest.mock("@/app/actions/registerStudent");
 
 describe("RegistrationForm", () => {
-  beforeAll(() => server.listen());
-  afterEach(() => server.resetHandlers());
-  afterAll(() => server.close());
-
   it("renders the page correctly", () => {
     const mockCourses: Props["courses"] = [
       {
@@ -45,17 +39,6 @@ describe("RegistrationForm", () => {
       email: "johndoe@example.com",
       courseId: "1",
     };
-
-    server.use(
-      rest.post("http://localhost:3000/api/register", async (req, res, ctx) => {
-        const requestJson =
-          (await req.json()) as Prisma.RegistrationCreateInput;
-        const { firstName, lastName, email, course } = requestJson;
-
-        // Return a mock response
-        return res(ctx.json({ id: 1, firstName, lastName, email }));
-      })
-    );
 
     const mockCourses: Props["courses"] = [
       {

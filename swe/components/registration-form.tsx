@@ -1,6 +1,7 @@
 "use client";
 
-import saveRegistrationForm from "@/lib/services/saveRegistrationFormService";
+import { registerStudent } from "@/app/actions/registerStudent";
+import transformRegistrationForm from "@/lib/utils/transformRegistrationForm";
 import { Course } from "@prisma/client";
 import { useForm } from "react-hook-form";
 import Dropdown from "./dropdown";
@@ -12,10 +13,15 @@ export interface Props {
 }
 
 export default function RegistrationForm({ courses }: Props) {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm();
 
   const onFormSubmission = async (data: any, event: any) => {
-    await saveRegistrationForm(data);
+    const registrationData = transformRegistrationForm(data);
+    const result = await registerStudent(registrationData);
+
+    if (result.success) {
+      reset();
+    }
   };
 
   return (
