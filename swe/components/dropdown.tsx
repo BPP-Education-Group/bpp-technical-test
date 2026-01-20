@@ -11,7 +11,7 @@ interface DropdownProps {
 export default function Dropdown(props: DropdownProps) {
   return (
     <select
-      className="rounded p-4 text-xl w-full"
+      className="rounded p-4 text-xl w-full bg-white"
       placeholder={props.placeholder}
       {...props.register(props.name, props.validationSchema)}
     >

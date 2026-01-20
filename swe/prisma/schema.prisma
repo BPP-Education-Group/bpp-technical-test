@@ -1,18 +1,21 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+  moduleFormat= "esm"
+  generatedFileExtension = "ts"
+  importFileExtension = "ts"
 }
 
-generator client {
-  provider = "prisma-client-js"
+datasource db {
+  provider = "sqlite"
 }
 
 model Course {
   id            Int     @id @default(autoincrement())
-  title         String  
+  title         String
   description   String
   cost          Int
   type          String
@@ -21,7 +24,7 @@ model Course {
   registrations Registration[]
 }
 
-model Registration {  
+model Registration {
   id          Int       @id @default(autoincrement())
   firstName   String
   lastName    String

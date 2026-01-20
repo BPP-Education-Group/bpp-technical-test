@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import { RegistrationWithCourse } from "@/types";
+import { RegistrationWithCourse } from "@/prisma/types";
 
 export interface Props {
   registrations: RegistrationWithCourse[];

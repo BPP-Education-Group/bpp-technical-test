@@ -1,19 +1,27 @@
+"use client";
+
+import { registerStudent } from "@/app/actions/registerStudent";
+import transformRegistrationForm from "@/lib/utils/transformRegistrationForm";
 import { Course } from "@prisma/client";
 import { useForm } from "react-hook-form";
 import Dropdown from "./dropdown";
 import Input from "./input";
 import InputSpacer from "./input-spacer";
-import saveRegistrationForm from "@/lib/services/saveRegistrationFormService";
 
 export interface Props {
   courses: Course[];
 }
 
 export default function RegistrationForm({ courses }: Props) {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm();
 
   const onFormSubmission = async (data: any, event: any) => {
-    await saveRegistrationForm(data);
+    const registrationData = transformRegistrationForm(data);
+    const result = await registerStudent(registrationData);
+
+    if (result.success) {
+      reset();
+    }
   };
 
   return (
@@ -21,10 +29,7 @@ export default function RegistrationForm({ courses }: Props) {
       <div className="mb-3">
         <h2 className="text-3xl text-white">Register onto Course</h2>
       </div>
-      <form
-        className="flex flex-col"
-        onSubmit={handleSubmit(onFormSubmission)}
-      >
+      <form className="flex flex-col" onSubmit={handleSubmit(onFormSubmission)}>
         <InputSpacer>
           <Input
             placeholder="First Name"
