@@ -15,9 +15,10 @@ The Registration-Form component uses react-hook-form package, and tests are writ
 Firstly, install the Node Packages
 
 ```bash
+node -v
+# Should return 22 or above.
+
 npm install
-# or
-yarn
 ```
 
 ### Development Server
@@ -25,9 +26,8 @@ yarn
 Next, run the development server:
 
 ```bash
+npx prisma generate
 npm run dev
-# or
-yarn dev
 ```
 
 And open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
