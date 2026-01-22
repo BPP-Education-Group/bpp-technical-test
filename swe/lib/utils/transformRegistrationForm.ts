@@ -1,8 +1,8 @@
+import { Prisma } from "@/generated/prisma/client";
 import { RegistrationFormDto } from "@/prisma/types/RegistrationFormDto";
-import { Prisma } from "@prisma/client";
 
 const transformRegistrationForm = (
-  registrationForm: RegistrationFormDto
+  registrationForm: RegistrationFormDto,
 ): Prisma.RegistrationCreateInput => ({
   firstName: registrationForm.firstName,
   lastName: registrationForm.lastName,

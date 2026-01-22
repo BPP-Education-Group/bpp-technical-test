@@ -1,8 +1,8 @@
 "use server";
 
+import { Prisma } from "@/generated/prisma/client";
 import { prisma } from "@/lib/prisma";
 import validateRegistrationForm from "@/lib/utils/validateRegistrationForm";
-import { Prisma } from "@prisma/client";
 
 export async function registerStudent(data: Prisma.RegistrationCreateInput) {
   try {

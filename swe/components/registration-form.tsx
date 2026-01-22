@@ -2,7 +2,7 @@
 
 import { registerStudent } from "@/app/actions/registerStudent";
 import transformRegistrationForm from "@/lib/utils/transformRegistrationForm";
-import { Course } from "@prisma/client";
+import { Course } from "@/generated/prisma/client";
 import { useForm } from "react-hook-form";
 import Dropdown from "./dropdown";
 import Input from "./input";
